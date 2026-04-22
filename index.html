@@ -3,137 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Marcello Rodrigo Saia Santos - Ciências Da Computação"</title>
-    <!-- Bootstrap 5 + Ícones + CSS elegante -->
+    <title>MarcelloRodrigoSaiaSantos</title>
+    <!-- Bootstrap 5 CSS + Icons + Estilo personalizado -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons (opcional mas bonito) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Google Fonts para sofisticação -->
+    <!-- Google Fonts para uma tipografia mais agradável -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
             font-family: 'Inter', sans-serif;
         }
-
         body {
-            background: linear-gradient(145deg, #f4f7fc 0%, #eef2f5 100%);
+            background: linear-gradient(135deg, #f5f7fc 0%, #e9eef5 100%);
             min-height: 100vh;
             padding: 2rem 0;
         }
-
-        .hero-card {
-            background: rgba(255, 255, 255, 0.92);
+        .card-custom {
+            border-radius: 2rem;
+            border: none;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(2px);
-            border-radius: 2.5rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.92);
             transition: all 0.2s ease;
         }
-
-        .webcam-frame {
-            background: #0000000c;
-            border-radius: 1.8rem;
-            padding: 1rem;
-            box-shadow: inset 0 1px 4px #00000008, 0 8px 20px rgba(0,0,0,0.05);
+        .header-gradient {
+            background: linear-gradient(98deg, #1e2b3c, #0f2b3a);
+            border-radius: 1.5rem;
+            color: white;
+            padding: 1.2rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
         }
-
-        #webcam-container canvas {
-            width: 100%;
-            height: auto;
-            border-radius: 1.4rem;
-            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.25);
-            background: #1e1f22;
-            transition: transform 0.2s;
-        }
-
-        .btn-elegant {
-            background: linear-gradient(105deg, #1e2b3c 0%, #0f212f 100%);
+        .btn-camera {
+            background: linear-gradient(95deg, #0f2b3a, #1a4a6e);
             border: none;
-            padding: 12px 32px;
+            padding: 12px 28px;
             font-weight: 600;
             font-size: 1.1rem;
-            letter-spacing: 0.3px;
             border-radius: 60px;
-            box-shadow: 0 8px 18px rgba(0, 20, 30, 0.2);
-            transition: all 0.25s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
             color: white;
         }
-
-        .btn-elegant:hover {
+        .btn-camera:hover {
             transform: translateY(-3px);
-            background: linear-gradient(105deg, #253e52 0%, #153545 100%);
-            box-shadow: 0 14px 24px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(95deg, #1a4a6e, #0f2b3a);
+            box-shadow: 0 15px 25px -8px rgba(0, 0, 0, 0.2);
             color: white;
         }
-
-        .btn-elegant:active {
+        .btn-camera:active {
             transform: translateY(2px);
         }
-
-        .class-card {
+        .webcam-wrapper {
+            background: #00000010;
+            border-radius: 28px;
+            padding: 12px;
+            background: #ffffffcc;
+            box-shadow: inset 0 1px 4px #0001, 0 8px 20px rgba(0,0,0,0.05);
+        }
+        canvas {
+            border-radius: 24px;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            background: #2c2c2c;
+        }
+        .label-card {
             background: white;
-            border-radius: 1.5rem;
-            padding: 1rem 1.2rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 1.2rem;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.9rem;
             transition: all 0.2s;
+            border-left: 6px solid;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
-
-        .class-name {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #1f3b4c;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .progress {
             height: 12px;
-            border-radius: 40px;
+            border-radius: 20px;
             background-color: #e9ecef;
-            box-shadow: inset 0 1px 2px #00000010;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px #0001;
         }
-
         .progress-bar {
-            border-radius: 40px;
-            background: linear-gradient(90deg, #2c7da0, #61a5c2);
-            transition: width 0.2s ease-out;
-        }
-
-        .confidence-value {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #2c7da0;
-            background: #eef6fc;
-            padding: 2px 10px;
-            border-radius: 50px;
-            display: inline-block;
-        }
-
-        .status-badge {
-            background: #e2eaf1;
-            padding: 6px 15px;
-            border-radius: 40px;
-            font-size: 0.8rem;
+            border-radius: 20px;
+            transition: width 0.2s ease;
             font-weight: 500;
-            color: #1f5e7e;
         }
-
-        footer {
-            font-size: 0.75rem;
-            color: #6c7e8c;
+        .class-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: -0.2px;
+        }
+        .percentage-value {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1e4663;
+        }
+        .footer-note {
+            font-size: 0.8rem;
             text-align: center;
             margin-top: 2rem;
+            color: #4a627a;
         }
-
         @media (max-width: 768px) {
-            .hero-card {
-                padding: 1.5rem !important;
+            body {
+                padding: 1rem 0.8rem;
             }
-            .btn-elegant {
-                width: 100%;
+            .label-card {
+                padding: 0.6rem 0.9rem;
             }
+            .class-name {
+                font-size: 0.85rem;
+            }
+        }
+        .status-badge {
+            background: #eef2ff;
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        i.bi-camera-reels-fill {
+            font-size: 1.3rem;
         }
     </style>
 </head>
@@ -142,333 +138,340 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-12">
-            <div class="hero-card p-4 p-md-5">
-                <!-- cabeçalho com ícone elegante -->
-                <div class="text-center mb-4">
-                    <div class="d-inline-flex bg-white p-3 rounded-circle shadow-sm mb-2">
-                        <i class="bi bi-camera-reels-fill" style="font-size: 2.2rem; color: #1f5e7e;"></i>
-                    </div>
-                    <h2 class="fw-bold" style="color: #1a3e4c;">Teachable Vision</h2>
-                    <p class="text-secondary">Classificação inteligente em tempo real • modelo personalizado</p>
-                    <div class="status-badge d-inline-flex align-items-center gap-2 mt-1">
-                        <i class="bi bi-dot"></i> Pronto para usar
-                    </div>
+            <div class="card-custom p-3 p-md-4 p-lg-5">
+                
+                <!-- Título principal -->
+                <div class="header-gradient">
+                    <h2 class="mb-1 fw-semibold"><i class="bi bi-magic"></i> Teachable Machine Vision</h2>
+                    <p class="mb-0 opacity-75">Classificação em tempo real com IA</p>
                 </div>
 
-                <!-- Botão de permissão da câmera (elegante + feedback) -->
-                <div class="d-flex justify-content-center mb-4">
-                    <button id="startBtn" class="btn-elegant d-flex align-items-center gap-2">
-                        <i class="bi bi-camera-video-fill"></i> Ativar câmera e classificar
+                <!-- Área do Botão Start (Permissão câmera) com design aprimorado -->
+                <div class="text-center my-4">
+                    <button id="startButton" class="btn btn-camera">
+                        <i class="bi bi-camera-video-fill me-2"></i> Ativar Câmera & Iniciar IA
                     </button>
-                </div>
-
-                <!-- Área da webcam com contorno suave -->
-                <div class="webcam-frame mb-4">
-                    <div id="webcam-container" class="d-flex justify-content-center"></div>
-                </div>
-
-                <!-- Container das classes com barras de progresso -->
-                <div class="mt-2">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-bar-chart-steps" style="color: #2c7da0;"></i>
-                        <h5 class="fw-semibold m-0" style="color: #1a3e4c;">Níveis de correspondência</h5>
-                        <span class="badge bg-light text-dark ms-2 rounded-pill">Probabilidade</span>
-                    </div>
-                    <div id="label-container" class="mt-2"></div>
-                    <div id="no-class-msg" class="text-center text-muted small mt-3 d-none">
-                        <i class="bi bi-info-circle"></i> Inicie a câmera para ver as previsões
+                    <div class="mt-3">
+                        <span class="status-badge" id="cameraStatus">
+                            <i class="bi bi-dot"></i> Aguardando permissão
+                        </span>
                     </div>
                 </div>
-                <footer class="mt-4 pt-2 border-top">
-                    <i class="bi bi-shield-check"></i> Análise local no navegador • TensorFlow.js + Teachable Machine
-                </footer>
+
+                <!-- Container da webcam + resultados lado a lado responsivo -->
+                <div class="row g-4 mt-2">
+                    <!-- Coluna da Webcam -->
+                    <div class="col-md-6">
+                        <div class="webcam-wrapper text-center">
+                            <div id="webcam-container" class="d-flex justify-content-center"></div>
+                            <small class="text-muted d-block mt-2"><i class="bi bi-info-circle"></i> Pré-visualização ao vivo</small>
+                        </div>
+                    </div>
+
+                    <!-- Coluna das classes com barras de progresso -->
+                    <div class="col-md-6">
+                        <div class="bg-white rounded-4 p-3 shadow-sm h-100">
+                            <h5 class="fw-semibold mb-3"><i class="bi bi-bar-chart-steps"></i> Níveis de correspondência</h5>
+                            <div id="label-container" class="d-flex flex-column gap-2"></div>
+                            <div class="alert alert-light mt-3 mb-0 py-2 small text-center" role="alert">
+                                <i class="bi bi-robot"></i> As barras mostram a confiança do modelo para cada classe
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-note">
+                    <i class="bi bi-shield-check"></i> Modelo treinado no Teachable Machine • Predições em tempo real
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts essenciais -->
+<!-- Scripts do TensorFlow.js e Teachable Machine -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
-<script>
-    (function() {
-        // ---- CONFIGURAÇÃO ----
-        // URL do modelo Teachable Machine (igual ao original)
-        const URL = "https://teachablemachine.withgoogle.com/models/Nt4dSmAa-/";
+<script type="text/javascript">
+    (function(){
+        // ==================== CONFIGURAÇÕES DO MODELO ====================
+        // Link do modelo exportado (substitua se necessário, mas o original está correto)
+        const URL = "https://teachablemachine.withgoogle.com/models/5M7hawIMe/";
         
         let model, webcam, labelContainer, maxPredictions;
-        let animationId = null;          // ID do requestAnimationFrame
-        let isRunning = false;            // controle para evitar múltiplas inits
-        
-        // Elementos do DOM
-        const startBtn = document.getElementById("startBtn");
+        let isRunning = false;      // controle para não iniciar múltiplas vezes
+        let animationId = null;
+        let currentLoop = null;
+
+        // Elementos DOM
+        const startBtn = document.getElementById("startButton");
+        const cameraStatusSpan = document.getElementById("cameraStatus");
         const webcamContainer = document.getElementById("webcam-container");
-        const labelContainerDiv = document.getElementById("label-container");
-        const noClassMsg = document.getElementById("no-class-msg");
         
-        // Função para limpar container de labels e reconstruir barras de progresso (range estilizado via Bootstrap)
-        function rebuildLabelContainer(classesCount) {
-            labelContainerDiv.innerHTML = ""; // remove todos os filhos
-            if (classesCount <= 0) return;
-            
-            for (let i = 0; i < classesCount; i++) {
-                // Criar card para cada classe com barra de progresso (Bootstrap)
-                const classCard = document.createElement("div");
-                classCard.className = "class-card";
-                classCard.setAttribute("data-class-index", i);
-                
-                // Estrutura interna: nome da classe + valor percentual, e barra de progresso
-                classCard.innerHTML = `
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div class="class-name">
-                            <i class="bi bi-tag-fill" style="font-size: 0.9rem;"></i>
-                            <span id="class-name-${i}">Classe ${i+1}</span>
-                        </div>
-                        <div class="confidence-value" id="confidence-value-${i}">0%</div>
-                    </div>
-                    <div class="progress" style="height: 12px;">
-                        <div class="progress-bar" id="progress-bar-${i}" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                `;
-                labelContainerDiv.appendChild(classCard);
+        // Limpa o container do webcam (caso já exista canvas antigo)
+        function resetWebcamContainer() {
+            while (webcamContainer.firstChild) {
+                webcamContainer.removeChild(webcamContainer.firstChild);
             }
         }
-        
-        // Atualiza dinamicamente os nomes das classes (vindas do modelo)
-        async function updateClassNamesFromModel() {
-            if (!model) return;
-            try {
-                // Obtém os nomes das classes a partir da metadata carregada internamente.
-                // tmImage normalmente expõe getClassLabels() ou podemos acessar via modelo.
-                // Como a API do teachablemachine-image permite obter as classes após load:
-                if (typeof model.getClassLabels === 'function') {
-                    const labels = model.getClassLabels();
-                    if (labels && labels.length === maxPredictions) {
-                        for (let i = 0; i < maxPredictions; i++) {
-                            const nameSpan = document.getElementById(`class-name-${i}`);
-                            if (nameSpan) nameSpan.innerText = labels[i];
-                        }
-                    } else {
-                        // fallback
-                        for (let i = 0; i < maxPredictions; i++) {
-                            const nameSpan = document.getElementById(`class-name-${i}`);
-                            if (nameSpan) nameSpan.innerText = `Categoria ${i+1}`;
-                        }
-                    }
+
+        // Atualiza a mensagem de status da câmera
+        function setCameraStatus(message, isError = false) {
+            if (cameraStatusSpan) {
+                cameraStatusSpan.innerHTML = `<i class="bi ${isError ? 'bi-exclamation-triangle-fill' : 'bi-camera-reels-fill'} me-1"></i> ${message}`;
+                if (isError) {
+                    cameraStatusSpan.style.background = "#ffe6e5";
+                    cameraStatusSpan.style.color = "#b00020";
                 } else {
-                    // fallback usando prediction textual, mas podemos tentar extrair do metadataJSON.
-                    // Solução robusta: buscar o metadata diretamente, mas manteremos uma alternativa.
-                    for (let i = 0; i < maxPredictions; i++) {
-                        const nameSpan = document.getElementById(`class-name-${i}`);
-                        if (nameSpan) nameSpan.innerText = `Classe ${i+1}`;
-                    }
+                    cameraStatusSpan.style.background = "#eef2ff";
+                    cameraStatusSpan.style.color = "#1e4663";
                 }
-            } catch(e) {
-                console.warn("Não foi possível obter nomes personalizados", e);
+            }
+        }
+
+        // Cria ou atualiza as barras de progresso (range style) para cada classe
+        function updateLabelProgress(predictions) {
+            if (!labelContainer) return;
+            // Se o número de classes mudou ou ainda não criamos os elementos, recria
+            if (labelContainer.children.length !== maxPredictions) {
+                // Recria todo o container de labels com estrutura de barra
+                labelContainer.innerHTML = '';
                 for (let i = 0; i < maxPredictions; i++) {
-                    const nameSpan = document.getElementById(`class-name-${i}`);
-                    if (nameSpan) nameSpan.innerText = `Classe ${i+1}`;
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = 'label-card';
+                    cardDiv.style.borderLeftColor = getColorForIndex(i);
+                    
+                    // Cabeçalho da classe e porcentagem
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'd-flex justify-content-between align-items-center mb-1';
+                    
+                    const classNameSpan = document.createElement('span');
+                    classNameSpan.className = 'class-name';
+                    classNameSpan.id = `class-name-${i}`;
+                    classNameSpan.textContent = `Classe ${i+1}`;
+                    
+                    const percentSpan = document.createElement('span');
+                    percentSpan.className = 'percentage-value';
+                    percentSpan.id = `percent-value-${i}`;
+                    percentSpan.textContent = '0%';
+                    
+                    headerDiv.appendChild(classNameSpan);
+                    headerDiv.appendChild(percentSpan);
+                    
+                    // Barra de progresso (range visual)
+                    const progressContainer = document.createElement('div');
+                    progressContainer.className = 'progress mt-1';
+                    const progressBar = document.createElement('div');
+                    progressBar.className = 'progress-bar';
+                    progressBar.id = `progress-bar-${i}`;
+                    progressBar.style.width = '0%';
+                    progressBar.setAttribute('aria-valuenow', '0');
+                    progressBar.setAttribute('aria-valuemin', '0');
+                    progressBar.setAttribute('aria-valuemax', '100');
+                    
+                    // Cor baseada no índice
+                    progressBar.style.backgroundColor = getColorForIndex(i);
+                    progressContainer.appendChild(progressBar);
+                    
+                    cardDiv.appendChild(headerDiv);
+                    cardDiv.appendChild(progressContainer);
+                    labelContainer.appendChild(cardDiv);
+                }
+            }
+            
+            // Atualiza os textos e barras com os novos valores
+            for (let i = 0; i < maxPredictions && i < predictions.length; i++) {
+                const classNameElem = document.getElementById(`class-name-${i}`);
+                const percentElem = document.getElementById(`percent-value-${i}`);
+                const progressBarElem = document.getElementById(`progress-bar-${i}`);
+                
+                if (classNameElem) {
+                    // Exibe o nome da classe vindo do modelo (ou fallback)
+                    let rawClassName = predictions[i].className;
+                    // Truncar se muito longo
+                    if (rawClassName && rawClassName.length > 25) rawClassName = rawClassName.substring(0, 22) + '...';
+                    classNameElem.textContent = rawClassName || `Classe ${i+1}`;
+                }
+                
+                const probability = predictions[i].probability;
+                const percent = (probability * 100).toFixed(1);
+                if (percentElem) percentElem.textContent = `${percent}%`;
+                if (progressBarElem) {
+                    progressBarElem.style.width = `${percent}%`;
+                    progressBarElem.setAttribute('aria-valuenow', percent);
+                    // Mudança de cor mais intensa conforme percentual (opcional)
+                    if (probability > 0.7) {
+                        progressBarElem.style.opacity = '1';
+                    } else {
+                        progressBarElem.style.opacity = '0.85';
+                    }
                 }
             }
         }
         
-        // Função de predição e atualização das barras de progresso + valores percentuais
+        // Função auxiliar para gerar cores diferentes por índice (mais suaves)
+        function getColorForIndex(idx) {
+            const colors = [
+                '#0d6efd', '#20c997', '#ffc107', '#dc3545', '#6f42c1', 
+                '#fd7e14', '#d63384', '#198754', '#0dcaf0', '#adb5bd'
+            ];
+            return colors[idx % colors.length];
+        }
+        
+        // Predição principal: chama o modelo e atualiza interface com barras
         async function predictAndUpdate() {
             if (!model || !webcam || !webcam.canvas) return;
             try {
                 const prediction = await model.predict(webcam.canvas);
-                if (!prediction || prediction.length === 0) return;
-                
-                for (let i = 0; i < maxPredictions && i < prediction.length; i++) {
-                    const probability = prediction[i].probability;
-                    const percent = (probability * 100).toFixed(1);
-                    const percentValue = Math.min(100, Math.max(0, probability * 100));
-                    
-                    // Atualizar barra de progresso
-                    const progressBar = document.getElementById(`progress-bar-${i}`);
-                    if (progressBar) {
-                        progressBar.style.width = `${percentValue}%`;
-                        progressBar.setAttribute('aria-valuenow', percentValue);
-                        // mudança dinâmica de cor (gradiente já definido, mas opcional)
-                        if (percentValue > 70) {
-                            progressBar.style.background = "linear-gradient(90deg, #2c7da0, #48a0c2)";
-                        } else if (percentValue > 40) {
-                            progressBar.style.background = "linear-gradient(90deg, #5fa8c0, #8bbdd6)";
-                        } else {
-                            progressBar.style.background = "linear-gradient(90deg, #95b8cc, #b6d0e0)";
-                        }
-                    }
-                    
-                    // Atualizar texto de confiança
-                    const confidenceSpan = document.getElementById(`confidence-value-${i}`);
-                    if (confidenceSpan) {
-                        confidenceSpan.innerText = `${percent}%`;
-                        // Destaque se for a classe com maior probabilidade
-                        if (probability === Math.max(...prediction.map(p => p.probability))) {
-                            confidenceSpan.style.background = "#d4eaf3";
-                            confidenceSpan.style.fontWeight = "700";
-                            confidenceSpan.style.color = "#0f4b5e";
-                        } else {
-                            confidenceSpan.style.background = "#eef6fc";
-                            confidenceSpan.style.fontWeight = "500";
-                            confidenceSpan.style.color = "#2c7da0";
-                        }
-                    }
+                if (prediction && prediction.length === maxPredictions) {
+                    updateLabelProgress(prediction);
                 }
-            } catch (error) {
-                console.error("Erro durante predição:", error);
+            } catch (err) {
+                console.warn("Erro na predição:", err);
             }
         }
         
-        // Loop principal: atualiza frame da webcam e faz predição contínua
-        async function loop() {
-            if (!isRunning || !webcam) return;
-            
-            if (webcam.update) {
-                webcam.update(); // atualiza o frame da webcam
+        // Loop principal de animação
+        async function predictionLoop() {
+            if (!isRunning) return;
+            if (webcam && webcam.update) {
+                webcam.update();   // atualiza frame da webcam
+                await predictAndUpdate();
             }
-            await predictAndUpdate();
-            
             // Continua o loop enquanto estiver ativo
             if (isRunning) {
-                animationId = requestAnimationFrame(loop);
+                animationId = requestAnimationFrame(predictionLoop);
             }
         }
         
-        // Função principal de inicialização (câmera + modelo)
-        async function initCameraAndModel() {
-            // Evita inicialização duplicada
-            if (isRunning) {
-                // Se já estiver rodando, podemos apenas dar foco, mas não reiniciar.
-                console.log("Sistema já ativo");
-                return;
-            }
-            
-            // Mostra um indicador visual no botão (desabilitar durante carregamento)
-            startBtn.disabled = true;
-            const originalBtnHTML = startBtn.innerHTML;
-            startBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Carregando modelo e câmera...';
-            
-            try {
-                // Carregar modelo e metadados
-                const modelURL = URL + "model.json";
-                const metadataURL = URL + "metadata.json";
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
-                
-                // Configurar webcam (dimensões equilibradas para performance)
-                const flip = true;
-                webcam = new tmImage.Webcam(320, 240, flip); // largura x altura otimizada
-                await webcam.setup();   // solicita permissão da câmera
-                await webcam.play();
-                
-                // Limpa container da webcam e anexa o canvas
-                webcamContainer.innerHTML = "";
-                webcamContainer.appendChild(webcam.canvas);
-                // Estilização extra no canvas
-                webcam.canvas.style.width = "100%";
-                webcam.canvas.style.height = "auto";
-                webcam.canvas.style.borderRadius = "1.4rem";
-                
-                // Recria os elementos das classes com base no número de classes
-                rebuildLabelContainer(maxPredictions);
-                
-                // Atualizar os nomes das classes a partir do metadata
-                await updateClassNamesFromModel();
-                
-                // Esconde mensagem de nenhuma classe
-                if (noClassMsg) noClassMsg.classList.add("d-none");
-                
-                // Inicializa flags e loop
-                isRunning = true;
-                // cancela animação anterior se existir
-                if (animationId) cancelAnimationFrame(animationId);
-                animationId = requestAnimationFrame(loop);
-                
-                // Mudar texto do botão para indicar sucesso
-                startBtn.innerHTML = '<i class="bi bi-check-lg"></i> Câmera ativa · Classificando';
-                startBtn.disabled = false;
-                startBtn.classList.add("btn-success");
-                // estilo adicional opcional
-                startBtn.style.background = "linear-gradient(105deg, #1f6742, #0e5a3a)";
-                
-            } catch (error) {
-                console.error("Erro ao iniciar câmera/modelo:", error);
-                let errorMsg = "Não foi possível acessar a câmera ou carregar o modelo. ";
-                if (error.name === "NotAllowedError") errorMsg = "Permissão da câmera negada. Por favor, permita o acesso e recarregue.";
-                else if (error.name === "NotFoundError") errorMsg = "Nenhuma câmera encontrada no dispositivo.";
-                alert(errorMsg + " Verifique conexão e permissões.");
-                startBtn.innerHTML = '<i class="bi bi-camera-video-fill"></i> Tentar novamente';
-                startBtn.disabled = false;
-                isRunning = false;
-                if (animationId) cancelAnimationFrame(animationId);
-                // Mostrar mensagem de erro na área de classes
-                if (labelContainerDiv) labelContainerDiv.innerHTML = `<div class="alert alert-warning text-center">⚠️ Erro: ${errorMsg}</div>`;
-                if (noClassMsg) noClassMsg.classList.remove("d-none");
-            }
-        }
-        
-        // Função de parada segura (opcional, mas mantém organização)
-        function stopClassification() {
-            if (webcam && typeof webcam.stop === "function") {
-                webcam.stop();
-            }
+        // Função para parar a webcam e liberar recursos (se necessário)
+        async function stopWebcamAndCleanup() {
+            isRunning = false;
             if (animationId) {
                 cancelAnimationFrame(animationId);
                 animationId = null;
             }
-            isRunning = false;
-            // Limpa container webcam mas mantém a interface limpa
-            if (webcamContainer) webcamContainer.innerHTML = '<div class="text-center text-muted p-4"><i class="bi bi-camera-off"></i> Câmera desligada</div>';
-            startBtn.innerHTML = '<i class="bi bi-camera-video-fill"></i> Ativar câmera e classificar';
-            startBtn.style.background = "linear-gradient(105deg, #1e2b3c 0%, #0f212f 100%)";
-            startBtn.disabled = false;
-            if (noClassMsg) noClassMsg.classList.remove("d-none");
-            // Opcional: resetar as barras de progresso
-            if (labelContainerDiv) {
-                const bars = document.querySelectorAll('.progress-bar');
-                bars.forEach(bar => bar.style.width = '0%');
-                const confs = document.querySelectorAll('.confidence-value');
-                confs.forEach(c => c.innerText = '0%');
+            if (webcam && webcam.stop) {
+                try {
+                    await webcam.stop();
+                } catch(e) { console.warn("Parar webcam:", e); }
+            }
+            // Remove o canvas do DOM para evitar duplicatas
+            if (webcam && webcam.canvas && webcam.canvas.parentNode) {
+                // O container será resetado depois, mas por segurança removemos referência
             }
         }
         
-        // Evento do botão: se já estiver rodando, podemos apenas reativar caso algo tenha parado? 
-        // Mas para UX consistente: ao clicar e já estiver ativo, não faz nada ou pergunta?
-        // Melhor: se já estiver rodando, o botão não faz nada (já está ativo). Caso contrário inicia.
-        // Se o usuário quiser reiniciar, ele recarrega a página (ou podemos oferecer um stop, mas simplicidade elegante)
-        startBtn.addEventListener("click", async () => {
+        // Inicialização completa: carrega modelo, permissão câmera, inicia loop
+        async function init() {
+            // Evita múltiplas inicializações
             if (isRunning) {
-                // Se já rodando, podemos apenas dar um pequeno aviso ou não fazer nada.
-                // Evita duplicidade de streams.
+                console.log("Já está rodando, recarregue a página se quiser reiniciar.");
+                setCameraStatus("Câmera já ativa!", false);
                 return;
-            } else {
-                await initCameraAndModel();
             }
-        });
-        
-        // Tratamento de desmontagem quando a página é fechada (boas práticas)
-        window.addEventListener("beforeunload", () => {
-            if (webcam && typeof webcam.stop === "function") {
-                webcam.stop();
+            
+            // Reset visual e para qualquer processo anterior
+            await stopWebcamAndCleanup();
+            resetWebcamContainer();
+            
+            // Atualiza status
+            setCameraStatus("🔄 Carregando modelo de IA...");
+            
+            try {
+                const modelURL = URL + "model.json";
+                const metadataURL = URL + "metadata.json";
+                
+                // Carrega modelo e metadados
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+                
+                // Prepara container de labels vazio (será preenchido no primeiro predict)
+                labelContainer = document.getElementById("label-container");
+                labelContainer.innerHTML = ''; // limpa qualquer conteúdo anterior
+                
+                // Configura a webcam (tamanho ideal 320x240 para melhor performance, mas mantemos 200x200)
+                const flip = true;   // inverter para espelhar (mais natural)
+                webcam = new tmImage.Webcam(320, 240, flip); // resolução maior fica mais nítido
+                await webcam.setup();   // solicita permissão da câmera
+                await webcam.play();
+                
+                // Adiciona o canvas da webcam ao container
+                webcam.canvas.style.width = '100%';
+                webcam.canvas.style.height = 'auto';
+                webcam.canvas.style.maxWidth = '100%';
+                webcamContainer.appendChild(webcam.canvas);
+                
+                // Atualiza status de sucesso
+                setCameraStatus("✅ Câmera ativa | IA pronta!");
+                
+                // Marca como rodando
+                isRunning = true;
+                
+                // Inicia o loop de predição contínuo
+                animationId = requestAnimationFrame(predictionLoop);
+                
+            } catch (error) {
+                console.error("Erro fatal na inicialização:", error);
+                let erroMsg = "Falha ao acessar câmera ou carregar modelo.";
+                if (error.name === 'NotAllowedError' || error.message?.includes('Permission')) {
+                    erroMsg = "Permissão da câmera negada. Por favor, conceda acesso e tente novamente.";
+                } else if (error.name === 'NotFoundError' || error.message?.includes('device')) {
+                    erroMsg = "Nenhuma câmera encontrada. Conecte uma câmera e recarregue.";
+                } else if (error.message && error.message.includes('model.json')) {
+                    erroMsg = "Erro ao baixar o modelo. Verifique sua conexão e o link do modelo.";
+                }
+                setCameraStatus(`❌ ${erroMsg}`, true);
+                isRunning = false;
+                if (webcam && webcam.canvas && webcam.canvas.parentNode) {
+                    // tenta remover canvas fantasma
+                    if(webcam.canvas.parentNode === webcamContainer) webcamContainer.removeChild(webcam.canvas);
+                }
+                // Mostra mensagem adicional no container de labels
+                if(labelContainer) labelContainer.innerHTML = `<div class="alert alert-danger m-2 text-center">Erro: ${erroMsg}</div>`;
             }
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-            }
-        });
-        
-        // Pré-carregar a interface com placeholder suave (mostra mensagem informativa)
-        rebuildLabelContainer(3); // placeholder inicial com 3 classes (depois será sobrescrito)
-        // Colocar nomes genéricos iniciais para não ficar vazio
-        for (let i = 0; i < 3; i++) {
-            const nameSpan = document.getElementById(`class-name-${i}`);
-            if (nameSpan) nameSpan.innerText = `Aguardando modelo...`;
         }
-        if (noClassMsg) noClassMsg.classList.remove("d-none");
         
-        // Armazenar referência global apenas para debug
-        window.__visionApp = { stopClassification };
+        // Configura o evento do botão Start com feedback melhorado
+        startBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            // Desabilita o botão temporariamente para evitar múltiplos cliques enquanto inicializa
+            startBtn.disabled = true;
+            startBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Inicializando...';
+            
+            try {
+                await init();
+            } catch (err) {
+                console.error(err);
+                setCameraStatus("Erro inesperado ao iniciar.", true);
+            } finally {
+                // Reabilita o botão, mas se já estiver rodando, altera o texto para indicar sucesso
+                if (isRunning) {
+                    startBtn.innerHTML = '<i class="bi bi-camera-video-fill me-2"></i> Câmera Ativa ✔';
+                    startBtn.disabled = false;
+                    // Opcional: após iniciado, não precisamos mais desabilitar, mas podemos manter ativo
+                    // Se o usuário clicar novamente, não fará nada pois isRunning = true e a função init retorna cedo
+                } else {
+                    startBtn.innerHTML = '<i class="bi bi-camera-video-fill me-2"></i> Tentar novamente';
+                    startBtn.disabled = false;
+                }
+            }
+        });
+        
+        // Inicializa o container de webcam vazio e label container com aviso amigável
+        labelContainer = document.getElementById("label-container");
+        if(labelContainer) {
+            labelContainer.innerHTML = `<div class="text-center text-muted p-3"><i class="bi bi-info-circle-fill"></i> Clique em "Ativar Câmera" para iniciar a classificação</div>`;
+        }
+        resetWebcamContainer();
+        setCameraStatus("Pronto para iniciar");
+        
+        // Pequeno fallback: se o usuário tentar usar a página em dispositivo sem suporte a getUserMedia
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            setCameraStatus("⚠️ Seu navegador não suporta acesso à câmera.", true);
+            startBtn.disabled = true;
+            startBtn.title = "Navegador sem suporte a getUserMedia";
+        }
     })();
 </script>
 </body>
