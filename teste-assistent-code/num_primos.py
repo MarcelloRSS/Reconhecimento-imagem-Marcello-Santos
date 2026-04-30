@@ -6,10 +6,10 @@ def is_prime(n: int) -> bool:
     dois divisores positivos distintos: 1 e ele mesmo.
 
     Args:
-        n: O número inteiro a ser verificado.
+        n (int): O número inteiro a ser verificado.
 
     Returns:
-        True se o número for primo, False caso contrário.
+        bool: True se o número for primo, False caso contrário.
 
     Raises:
         TypeError: Se n não for um inteiro.
