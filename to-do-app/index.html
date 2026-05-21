@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0f172a',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(16px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(124, 58, 237, 0.06) 0%, transparent 60%);
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .glass-input:focus {
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            outline: none;
+        }
+        .todo-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .todo-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+        .todo-card.done {
+            opacity: 0.45;
+        }
+        .hidden { display: none !important; }
+        .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- ======= VIEW: LOGIN ======= -->
+    <div id="login-view" class="min-h-screen flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-md p-8 rounded-2xl shadow-2xl animate-fade-in">
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Entrar na conta</h2>
+                <p class="text-slate-400 text-sm mt-1">Gerencie suas tarefas com eficiencia</p>
+            </div>
+            <form id="login-form" class="space-y-5" novalidate>
+                <div>
+                    <label for="login-email" class="block text-sm font-medium mb-1.5 text-slate-300">E-mail</label>
+                    <input type="email" id="login-email" class="glass-input w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm" placeholder="seu@email.com">
+                    <p id="login-email-error" class="text-red-400 text-xs mt-1.5 hidden"></p>
+                </div>
+                <div>
+                    <label for="login-password" class="block text-sm font-medium mb-1.5 text-slate-300">Senha</label>
+                    <input type="password" id="login-password" class="glass-input w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm" placeholder="Minimo 6 caracteres">
+                    <p id="login-password-error" class="text-red-400 text-xs mt-1.5 hidden"></p>
+                </div>
+                <p id="login-general-error" class="text-red-400 text-sm text-center bg-red-400/10 py-2 px-3 rounded-lg hidden"></p>
+                <button type="submit" id="login-submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg shadow-blue-500/25 active:scale-[0.98]">
+                    Entrar
+                </button>
+            </form>
+            <p class="mt-6 text-center text-sm text-slate-400">
+                Nao tem uma conta?
+                <a href="#" id="link-to-register" class="text-blue-400 hover:text-blue-300 transition-colors ml-1 font-medium">Cadastre-se</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ======= VIEW: CADASTRO ======= -->
+    <div id="register-view" class="min-h-screen flex items-center justify-center p-4 hidden">
+        <div class="glass-card w-full max-w-md p-8 rounded-2xl shadow-2xl animate-fade-in">
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Criar conta</h2>
+                <p class="text-slate-400 text-sm mt-1">Comece a organizar suas tarefas hoje</p>
+            </div>
+            <form id="register-form" class="space-y-5" novalidate>
+                <div>
+                    <label for="register-name" class="block text-sm font-medium mb-1.5 text-slate-300">Nome</label>
+                    <input type="text" id="register-name" class="glass-input w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm" placeholder="Seu nome completo">
+                    <p id="register-name-error" class="text-red-400 text-xs mt-1.5 hidden"></p>
+                </div>
+                <div>
+                    <label for="register-email" class="block text-sm font-medium mb-1.5 text-slate-300">E-mail</label>
+                    <input type="email" id="register-email" class="glass-input w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm" placeholder="seu@email.com">
+                    <p id="register-email-error" class="text-red-400 text-xs mt-1.5 hidden"></p>
+                </div>
+                <div>
+                    <label for="register-password" class="block text-sm font-medium mb-1.5 text-slate-300">Senha</label>
+                    <input type="password" id="register-password" class="glass-input w-full px-4 py-3 rounded-lg text-white placeholder-slate-500 text-sm" placeholder="Minimo 6 caracteres">
+                    <p id="register-password-error" class="text-red-400 text-xs mt-1.5 hidden"></p>
+                </div>
+                <p id="register-general-error" class="text-red-400 text-sm text-center bg-red-400/10 py-2 px-3 rounded-lg hidden"></p>
+                <button type="submit" id="register-submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg shadow-blue-500/25 active:scale-[0.98]">
+                    Criar conta
+                </button>
+            </form>
+            <p class="mt-6 text-center text-sm text-slate-400">
+                Ja tem uma conta?
+                <a href="#" id="link-to-login" class="text-blue-400 hover:text-blue-300 transition-colors ml-1 font-medium">Faca login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ======= VIEW: DASHBOARD ======= -->
+    <div id="app-view" class="hidden min-h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="glass-card border-b border-white/5 sticky top-0 z-10">
+            <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-blue-600/20 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-sm font-bold text-white">To-Do App</h1>
+                        <p class="text-xs text-slate-400">Ola, <span id="user-greeting" class="text-blue-400 font-medium"></span></p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-xs text-slate-500" id="todo-stats"></p>
+                    </div>
+                    <button id="logout-btn" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 text-slate-300 text-sm transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        <span class="hidden sm:inline">Sair</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-5xl mx-auto w-full px-6 py-8 flex-1 flex flex-col lg:flex-row gap-6">
+
+            <!-- Formulario (Coluna esquerda) -->
+            <aside class="lg:w-80 flex-shrink-0">
+                <div class="glass-card rounded-2xl p-6 sticky top-24">
+                    <h2 class="text-base font-semibold text-white mb-5 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Nova Tarefa
+                    </h2>
+                    <form id="todo-form" class="space-y-4" novalidate>
+                        <div>
+                            <label for="todo-title" class="block text-xs font-medium mb-1.5 text-slate-400 uppercase tracking-wider">Titulo *</label>
+                            <input type="text" id="todo-title" class="glass-input w-full px-3 py-2.5 rounded-lg text-white placeholder-slate-500 text-sm" placeholder="O que precisa ser feito?">
+                            <p id="todo-title-error" class="text-red-400 text-xs mt-1.5 hidden"></p>
+                        </div>
+                        <div>
+                            <label for="todo-type" class="block text-xs font-medium mb-1.5 text-slate-400 uppercase tracking-wider">Categoria</label>
+                            <select id="todo-type" class="glass-input w-full px-3 py-2.5 rounded-lg text-white text-sm cursor-pointer appearance-none">
+                                <option value="trabalho" class="bg-slate-900">Trabalho</option>
+                                <option value="pessoal" class="bg-slate-900">Pessoal</option>
+                                <option value="estudos" class="bg-slate-900">Estudos</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="todo-description" class="block text-xs font-medium mb-1.5 text-slate-400 uppercase tracking-wider">Descricao <span class="text-slate-600 normal-case">(opcional)</span></label>
+                            <textarea id="todo-description" rows="3" class="glass-input w-full px-3 py-2.5 rounded-lg text-white placeholder-slate-500 text-sm resize-none" placeholder="Detalhes da tarefa..."></textarea>
+                        </div>
+                        <button type="submit" id="todo-submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 shadow-lg shadow-blue-500/20 active:scale-[0.98] text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            Adicionar Tarefa
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Lista de Tarefas (Coluna direita) -->
+            <section class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="text-base font-semibold text-white flex items-center gap-2">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                        </svg>
+                        Suas Tarefas
+                    </h2>
+                    <div id="filter-btns" class="flex gap-1.5">
+                        <button data-filter="all" class="filter-btn active px-3 py-1 rounded-md text-xs font-medium transition-all bg-blue-600 text-white">Todas</button>
+                        <button data-filter="pending" class="filter-btn px-3 py-1 rounded-md text-xs font-medium transition-all bg-slate-800/60 text-slate-400 hover:text-white">Pendentes</button>
+                        <button data-filter="done" class="filter-btn px-3 py-1 rounded-md text-xs font-medium transition-all bg-slate-800/60 text-slate-400 hover:text-white">Concluidas</button>
+                    </div>
+                </div>
+
+                <!-- Container da lista -->
+                <div id="todo-list" class="space-y-3"></div>
+
+                <!-- Estado vazio -->
+                <div id="empty-state" class="hidden text-center py-16">
+                    <div class="w-16 h-16 bg-slate-800/50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                    </div>
+                    <p class="text-slate-500 text-sm font-medium">Nenhuma tarefa cadastrada ainda.</p>
+                    <p class="text-slate-600 text-xs mt-1">Use o formulario ao lado para comecar!</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
